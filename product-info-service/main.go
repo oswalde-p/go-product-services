@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -39,7 +40,8 @@ func main() {
 
 func getImage(sku string) (interface{}, error) {
 	log.Println("Fetching image")
-	url := fmt.Sprintf("%v://%v:%v/products/%v", "http", "localhost", "8081", sku)
+	url := fmt.Sprintf(os.Getenv("IMAGE_URL") + "products/" + sku)
+	log.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Panic(err)
@@ -54,7 +56,7 @@ func getImage(sku string) (interface{}, error) {
 
 func getPrice(sku string) (interface{}, error) {
 	log.Println("Fetching price")
-	url := fmt.Sprintf("%v://%v:%v/products/%v", "http", "localhost", "8082", sku)
+	url := fmt.Sprintf("%vproducts/%v", os.Getenv("PRICE_URL"), sku)
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Panic(err)

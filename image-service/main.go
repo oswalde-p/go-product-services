@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -29,11 +28,7 @@ func main() {
 			})
 		}
 	})
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8081"
-	}
-	r.Run("127.0.0.1:" + port)
+	r.Run()
 }
 
 func init() {
