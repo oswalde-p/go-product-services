@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,7 +31,11 @@ func main() {
 			})
 		}
 	})
-	r.Run()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8082"
+	}
+	r.Run("127.0.0.1:" + port)
 }
 
 func init() {
